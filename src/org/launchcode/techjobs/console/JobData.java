@@ -10,7 +10,8 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import java.util.Collections;
 
 /**
  * Created by LaunchCode
@@ -44,6 +45,7 @@ public class JobData {
             }
         }
 
+        Collections.sort(values);
         return values;
     }
 
@@ -51,8 +53,8 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
-
-        return allJobs;
+        ArrayList<HashMap<String, String>> allJobsData = new ArrayList<>(allJobs);
+        return allJobsData;
     }
 
     /**
@@ -97,20 +99,15 @@ public class JobData {
         
         //initialize the return list of job HashMaps 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
-        
-        //for each job in the list of all jobs
-        for (HashMap<String, String> job : allJobs) {
-            //for each value in the set of all values in job
-            for (String value : job.values()) {
-                // if value contains the search term and job isn't already in jobs, add job to jobs
-                if (value.toLowerCase().contains(searchTerm) && !jobs.contains(job)) {
-                    jobs.add(job);
-                }
+
+        allJobs.forEach(job -> {
+            if(job.values().stream().map(String::toLowerCase).anyMatch(searchTerm::contains)) {
+                jobs.add(job);
             }
-        }
+        });
+
         return jobs;
     }
-
 
     /**
      * Read in data from a CSV file and store it in a list
