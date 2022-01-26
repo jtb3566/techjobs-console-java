@@ -10,6 +10,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -76,13 +77,40 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value)) {
                 jobs.add(row);
             }
         }
 
         return jobs;
     }
+    /**
+     * Returns results of search that looks for the search term in all of the columns.
+     *
+     * @param searchTerm term to search for across all columns
+     * @return List of all jobs matching the criteria
+     */
+
+    public static ArrayList<HashMap<String, String>> findByValue (String searchTerm) {
+        // load data, if not already loaded
+        loadData();
+        
+        //initialize the return list of job HashMaps 
+        ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
+        
+        //for each job in the list of all jobs
+        for (HashMap<String, String> job : allJobs) {
+            //for each value in the set of all values in job
+            for (String value : job.values()) {
+                // if value contains the search term and job isn't already in jobs, add job to jobs
+                if (value.toLowerCase().contains(searchTerm) && !jobs.contains(job)) {
+                    jobs.add(job);
+                }
+            }
+        }
+        return jobs;
+    }
+
 
     /**
      * Read in data from a CSV file and store it in a list
