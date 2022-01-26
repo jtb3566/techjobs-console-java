@@ -117,7 +117,7 @@ public class TechJobs {
             //for each job in someJobs
             someJobs.forEach(job -> {
                 System.out.println("*****");
-                //for each (key, value) entry in the set of job entries
+                //for each (key, value) entry in the job
                 job.forEach((key, value) -> {
                     //print "'key': 'value'"
                     System.out.println(key + ": " + value);

@@ -45,7 +45,7 @@ public class JobData {
             }
         }
 
-        Collections.sort(values);
+        Collections.sort(values); //bonus mission 1
         return values;
     }
 
@@ -53,7 +53,7 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
-        ArrayList<HashMap<String, String>> allJobsData = new ArrayList<>(allJobs);
+        ArrayList<HashMap<String, String>> allJobsData = new ArrayList<>(allJobs); //bonus mission 2
         return allJobsData;
     }
 
